@@ -1,10 +1,22 @@
+import Image from 'next/image';
 import TodoList from './components/TodoList';
 
 export default function HomePage() {
   return (
-    <main className="flex flex-col items-center justify-center">
-      <h1 className="text-2xl font-bold">할 일 목록</h1>
+    <main className="flex flex-col items-start justify-start mt-2">
+      <div className="flex items-center space-x-2 mt-2"> 
+        {/* 로고 이미지 */}
+        <Image
+          src="/images/logo.png" 
+          alt="Logo"
+          width={50} 
+          height={50}
+        />
+        {/* do it; 텍스트 */}
+        <h1 className="text-2xl font-bold" style={{ color: '#4B0082' }}>do it;</h1>
+      </div>
       <TodoList />
     </main>
   );
 }
+
