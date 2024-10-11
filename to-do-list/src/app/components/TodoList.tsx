@@ -21,18 +21,22 @@ const TodoList: React.FC = () => {
   }, []);
 
   
-  const handleAddTodo = () => {
-    if (newTodo.trim() === '') return;
 
-    const newTodoItem: Todo = {
+const handleAddTodo = () => {
+    const storedTodos = localStorage.getItem('todos');
+    const todos = storedTodos ? JSON.parse(storedTodos) : [];
+    
+    const newTodoItem = {
       id: Date.now().toString(),
       text: newTodo,
       completed: false,
     };
-
-    setTodos([...todos, newTodoItem]);
-    setNewTodo('');  
+  
+    todos.push(newTodoItem);
+    localStorage.setItem('todos', JSON.stringify(todos));
+    setTodos(todos);
   };
+  
 
   const handleToggleComplete = (id: string) => {
     const updatedTodos = todos.map((todo) =>

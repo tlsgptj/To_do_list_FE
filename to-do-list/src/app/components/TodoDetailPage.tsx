@@ -21,7 +21,7 @@ const TodoDetailPage: React.FC = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    console.log("itemId:", itemId); // 디버깅용 로그
+    console.log("itemId:", itemId); 
     if (itemId) {
       const storedTodos = localStorage.getItem('todos');
       if (storedTodos) {
