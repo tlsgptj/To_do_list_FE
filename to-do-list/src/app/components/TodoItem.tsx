@@ -12,32 +12,33 @@ interface TodoItemProps {
   onDelete: (id: string) => void;
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo, onToggleComplete, onDelete }) => {
+const TodoItem: React.FC<TodoItemProps> = ({ todo, onToggleComplete }) => {
   return (
     <li
       className={`flex justify-between items-center p-2 rounded-lg ${
-        todo.completed ? 'bg-green-100' : 'bg-white'
+        todo.completed ? 'bg-purple-100 border-2 border-black rounded-full' : 'bg-white border-2 border-black rounded-full'
       }`}
     >
       <div className="flex items-center">
-        <input
-          type="checkbox"
-          checked={todo.completed}
-          onChange={() => onToggleComplete(todo.id)}
-          className="mr-2"
-        />
+        <div
+          onClick={() => onToggleComplete(todo.id)}
+          className="mr-2 w-6 h-6 flex items-center justify-center cursor-pointer"
+        >
+          {todo.completed ? (
+            <img src="/images/unchecked.png" alt="Checked" className="w-full h-full" />
+          ) : (
+            <img src="/images/checked.png" alt="Unchecked" className="w-full h-full" />
+          )} {/* checked.png와 unchecked.png를 이름을 실수로 다르게 설정했습니다.*/}
+        </div>
+
+
         <span className={todo.completed ? 'line-through text-gray-500' : ''}>
           {todo.text}
         </span>
       </div>
-      <button
-        className="text-red-500"
-        onClick={() => onDelete(todo.id)}
-      >
-        삭제
-      </button>
     </li>
   );
 };
 
 export default TodoItem;
+
