@@ -13,7 +13,6 @@ const TodoList: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [newTodo, setNewTodo] = useState<string>('');
 
-  // 할 일 목록 불러오기
   useEffect(() => {
     const storedTodos = localStorage.getItem('todos');
     if (storedTodos) {
@@ -21,7 +20,7 @@ const TodoList: React.FC = () => {
     }
   }, []);
 
-  // 할 일 추가
+  
   const handleAddTodo = () => {
     if (newTodo.trim() === '') return;
 
@@ -32,10 +31,9 @@ const TodoList: React.FC = () => {
     };
 
     setTodos([...todos, newTodoItem]);
-    setNewTodo('');  // 입력창 초기화
+    setNewTodo('');  
   };
 
-  // 할 일 완료 토글
   const handleToggleComplete = (id: string) => {
     const updatedTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
