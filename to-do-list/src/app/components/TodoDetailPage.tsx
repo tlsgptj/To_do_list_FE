@@ -116,29 +116,44 @@ const TodoDetailPage: React.FC = () => {
       </div>
 
       <div className="w-full max-w-2xl flex space-x-4 mt-4">
-        {/* 이미지 업로드 */}
-        <div className="w-1/2 bg-gray-100 p-4 flex items-center justify-center border-2 border-dashed rounded-lg relative">
-          {image ? (
-            <img
-              src={URL.createObjectURL(image)}
-              alt="Todo Image"
-              className="w-full h-full object-cover rounded-lg"
-            />
-          ) : (
-            <div className="text-gray-400 text-lg flex items-center justify-center">
-              <img 
-                src="/images/img.png" 
-                width={64} 
-                height={64} 
-            />
-            </div>
-          )}
-          <input
-            type="file"
-            onChange={handleImageUpload}
-            className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
-          />
-        </div>
+  <div className="w-1/2 bg-gray-100 p-4 flex items-center justify-center border-2 border-dashed rounded-lg relative">
+    {image ? (
+      <img
+        src={URL.createObjectURL(image)}
+        alt="Todo Image"
+        className="w-full h-full object-cover rounded-lg"
+      />
+    ) : (
+      <div className="text-gray-400 text-lg flex items-center justify-center">
+        <img 
+          src="/images/img.png" 
+          width={64} 
+          height={64} 
+        />
+      </div>
+    )}
+
+    <input
+      type="file"
+      id="fileUpload"
+      accept="image/*"
+      style={{ display: 'none' }} 
+      onChange={(e) => {
+        const file = e.target.files?.[0];
+        if (file) {
+          setImage(file); 
+        }
+      }}
+    />
+
+    <button
+      onClick={() => document.getElementById('fileUpload')?.click()} // 버튼 클릭 시 파일 선택창을 오픈
+      className="absolute bottom-4 right-4 p-2 rounded-full"
+    >
+      <img src="/images/plus.png" width={45} height={45} />
+    </button>
+  </div>
+
 
         <div className="w-1/2 bg-yellow-50 p-4 rounded-lg relative">
         <p className="text-red-500 text-center">memo</p>
@@ -161,15 +176,15 @@ const TodoDetailPage: React.FC = () => {
       <div className="mt-4 flex justify-end space-x-2">
         <button
           onClick={BacktoList}
-          className="bg-gray-300 text-black py-2 px-6 rounded-full"
+          className="bg-gray-300 text-black font-bold py-2 px-6 rounded-full shadow-md hover:bg-lime-400 hover:text-white flex items-center justify-center"
         >
-          수정 완료
+          V 수정 완료
         </button>
         <button
           onClick={handleDelete}
-          className="bg-red-500 text-white py-2 px-6 rounded-full"
+          className="bg-red-500 text-white font-bold py-2 px-6 rounded-full shadow-md hover:bg-red-400 flex items-center justify-center"
         >
-          삭제하기
+          X 삭제하기
         </button>
       </div>
     </div>
