@@ -33,11 +33,11 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onToggleComplete }) => {
         </div>
 
 
-        <Link href={`/items/${todo.id}`}>
+       <Link href={`/items/${todo.id}`}>
           <span className={todo.completed ? 'line-through text-gray-500 cursor-pointer' : 'cursor-pointer'}>
             {todo.text}
           </span>
-        </Link>
+        </Link> 
       </div>
     </li>
   );

@@ -63,7 +63,7 @@ const TodoList: React.FC = () => {
           value={newTodo}
           onChange={(e) => setNewTodo(e.target.value)}
           className="flex-grow p-4 border-2 border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500 text-lg"
-          placeholder="비타민 챙겨먹기"
+          placeholder="할 일을 입력해주세요"
         />
         <button
           onClick={handleAddTodo}
@@ -132,4 +132,3 @@ const TodoList: React.FC = () => {
 };
 
 export default TodoList;
-
