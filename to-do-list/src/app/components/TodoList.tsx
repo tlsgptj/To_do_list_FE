@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, useEffect } from 'react';
 import TodoItem from './TodoItem';
 
@@ -19,12 +21,7 @@ const TodoList: React.FC = () => {
     }
   }, []);
 
-  // 할 일 목록 저장
-  useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos));
-  }, [todos]);
-
-  // 새로운 할 일 추가
+  // 할 일 추가
   const handleAddTodo = () => {
     if (newTodo.trim() === '') return;
 
@@ -35,7 +32,7 @@ const TodoList: React.FC = () => {
     };
 
     setTodos([...todos, newTodoItem]);
-    setNewTodo('');
+    setNewTodo('');  // 입력창 초기화
   };
 
   // 할 일 완료 토글
@@ -55,18 +52,15 @@ const TodoList: React.FC = () => {
   return (
     <div className="w-full max-w-lg mx-auto mt-10">
       <h1 className="text-2xl font-bold mb-4">할 일 목록</h1>
-      <div className="flex mb-4">
+      <div className="mb-4">
         <input
           type="text"
-          className="w-full border-2 border-gray-300 p-2 rounded-lg focus:outline-none"
-          placeholder="할 일을 입력하세요"
           value={newTodo}
           onChange={(e) => setNewTodo(e.target.value)}
+          className="border p-2 w-full mb-2"
+          placeholder="할 일을 입력하세요"
         />
-        <button
-          className="bg-blue-500 text-white p-2 ml-2 rounded-lg"
-          onClick={handleAddTodo}
-        >
+        <button onClick={handleAddTodo} className="bg-blue-500 text-white p-2 w-full">
           추가하기
         </button>
       </div>
