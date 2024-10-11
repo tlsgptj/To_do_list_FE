@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 interface Todo {
   id: string;
@@ -32,9 +33,11 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onToggleComplete }) => {
         </div>
 
 
-        <span className={todo.completed ? 'line-through text-gray-500' : ''}>
-          {todo.text}
-        </span>
+        <Link href={`/items/${todo.id}`}>
+          <span className={todo.completed ? 'line-through text-gray-500 cursor-pointer' : 'cursor-pointer'}>
+            {todo.text}
+          </span>
+        </Link>
       </div>
     </li>
   );
