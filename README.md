@@ -31,4 +31,5 @@ https://to-do-list-neon-eta.vercel.app/
 2. 위의 공통인 레이아웃은 따로 Layout.tsx 클래스를 만들었습니다.
 3. 기능 구현 부분 중 수정로직 및 할일 체크 기능 분리 구현이 힘들었는데, 
 isEditing, isEditing이 아닌 경우를 나누어서 해결했습니다.
+4. 가장 보편적인 vecel로 배포를 했습니다. (유지보수하기에도 편해서...)
 
