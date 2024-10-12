@@ -23,6 +23,7 @@ const TodoList: React.FC = () => {
   
 
 const handleAddTodo = () => {
+    if (newTodo.trim() == '') return; //베타 테스트 중 입력값이 비어있어도 추가된다는 오류가 나서 추가함
     const storedTodos = localStorage.getItem('todos');
     const todos = storedTodos ? JSON.parse(storedTodos) : [];
     
@@ -32,9 +33,10 @@ const handleAddTodo = () => {
       completed: false,
     };
   
-    todos.push(newTodoItem);
-    localStorage.setItem('todos', JSON.stringify(todos));
-    setTodos(todos);
+    const updatedTodos = [...todos, newTodoItem];
+    localStorage.setItem('todos', JSON.stringify(updatedTodos));
+    setTodos(updatedTodos);
+    setNewTodo(''); //베타테스트 도중 추가하기 버튼을 누르면 Done에 있는 데이터가 영향을 받는다는 오류 수정
   };
   
 
