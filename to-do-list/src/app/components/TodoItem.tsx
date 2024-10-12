@@ -17,7 +17,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo, onToggleComplete }) => {
   return (
     <li
       className={`flex justify-between items-center p-2 rounded-lg ${
-        todo.completed ? 'bg-purple-100 border-2 border-black rounded-full' : 'bg-white border-2 border-black rounded-full'
+        todo.completed ? 'bg-purple-100 border-2 border-purple-300 rounded-full' : 'bg-white border-2 border-black rounded-full'
       }`}
     >
       <div className="flex items-center">
