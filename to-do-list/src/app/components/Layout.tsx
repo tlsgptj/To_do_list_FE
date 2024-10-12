@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface LayoutProps {
-  onReset: () => void; 
+  onReset?: () => void; 
 }
 
 const Layout: React.FC<LayoutProps> = ({ onReset }) => {
