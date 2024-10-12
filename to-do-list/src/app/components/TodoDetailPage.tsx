@@ -157,7 +157,7 @@ const TodoDetailPage: React.FC = () => {
 
       {error && <p className="text-red-500 mt-2">{error}</p>}
 
-      <div className="mt-4 flex justify-end space-x-2">
+      <div className="mt-4 flex justify-end w-full space-x-2">
         <button
           onClick={handleUpdate}
           className="bg-gray-300 text-black font-bold py-2 px-6 rounded-full shadow-md hover:bg-lime-400 hover:text-white flex items-center justify-center"
