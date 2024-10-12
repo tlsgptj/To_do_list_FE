@@ -109,7 +109,7 @@ const TodoDetailPage: React.FC = () => {
 
   return (
     <div>
-      <Layout /> {/* Layout 컴포넌트를 상단에 표시 */}
+      <Layout /> 
       <div className="flex flex-col items-center justify-center w-full max-w-4xl mx-auto p-4">
         <div className="w-full p-4 flex space-x-4">
           <div className="flex-1 relative">

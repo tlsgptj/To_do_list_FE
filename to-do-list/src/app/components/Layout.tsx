@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const Layout: React.FC = () => {
   return (
     <div className="flex items-center space-x-2 mt-2"> 
         <img
