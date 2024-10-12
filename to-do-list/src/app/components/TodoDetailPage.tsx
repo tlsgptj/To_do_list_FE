@@ -3,7 +3,7 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Layout from './Layout';
-
+//Todo에서 받을 인자들 정의
 interface Todo {
   id: string;
   text: string;
@@ -21,7 +21,7 @@ const TodoDetailPage: React.FC = () => {
   const [image, setImage] = useState<string | null>(null);
   const [error, setError] = useState('');
   const [isEditing, setIsEditing] = useState(false);
-
+//Id를 받아온다
   useEffect(() => {
     if (itemId) {
       const storedTodos = localStorage.getItem('todos');
@@ -39,16 +39,16 @@ const TodoDetailPage: React.FC = () => {
       }
     }
   }, [itemId]);
-
+  //파일 5MB이내로 업로드 해야함
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       if (!/^[a-zA-Z0-9_.-]+$/.test(file.name)) {
-        setError('파일 이름은 영어로만 이루어져야 합니다.');
+        console.log('파일 이름은 영어로만 이루어져야 합니다.');
         return;
       }
       if (file.size > 5 * 1024 * 1024) {
-        setError('파일 크기는 5MB 이하여야 합니다.');
+        console.log('파일 크기는 5MB 이하여야 합니다.');
         return;
       }
 
@@ -61,7 +61,7 @@ const TodoDetailPage: React.FC = () => {
       reader.readAsDataURL(file);
     }
   };
-
+  //사진 및 메모 저장 로직
   const handleUpdate = () => {
     if (todo) {
       const storedTodos = localStorage.getItem('todos');
@@ -75,7 +75,7 @@ const TodoDetailPage: React.FC = () => {
     }
     router.back();
   };
-
+  //지우고 메인으로 돌아감
   const handleDelete = () => {
     if (todo) {
       const storedTodos = localStorage.getItem('todos');
@@ -87,7 +87,7 @@ const TodoDetailPage: React.FC = () => {
       }
     }
   };
-
+  
   const handleToggleComplete = () => {
     if (todo) {
       const updatedTodo = { ...todo, completed: !todo.completed };

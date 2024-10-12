@@ -3,7 +3,7 @@ import React from 'react';
 interface LayoutProps {
   onReset?: () => void; 
 }
-
+//로고와 do it 구현
 const Layout: React.FC<LayoutProps> = ({ onReset }) => {
   return (
     <div className="flex items-center space-x-2 mt-2" onClick={onReset}> {/* 클릭 시 onReset 호출 */}
