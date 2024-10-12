@@ -20,47 +20,42 @@ const TodoList: React.FC = () => {
     }
   }, []);
 
-  // 새로운 할 일 추가
 const handleAddTodo = () => {
-    if (newTodo.trim() === '') return;  // 입력 값이 없으면 추가하지 않음
+    if (newTodo.trim() === '') return;  
   
     const storedTodos = localStorage.getItem('todos');
     const todos = storedTodos ? JSON.parse(storedTodos) : [];
   
-    // Done(완료된 항목)은 유지하고 TODO(완료되지 않은 항목)에만 새 항목 추가
     const doneItems = todos.filter((todo: Todo) => todo.completed);
     const todoItems = todos.filter((todo: Todo) => !todo.completed);
   
     const newTodoItem = {
       id: Date.now().toString(),
       text: newTodo,
-      completed: false,  // 새 항목은 미완료 상태로 추가
+      completed: false,  
     };
   
-    const updatedTodos = [...doneItems, ...todoItems, newTodoItem];  // 완료된 항목과 새 할 일 추가된 TODO 목록
+    const updatedTodos = [...doneItems, ...todoItems, newTodoItem];  
     localStorage.setItem('todos', JSON.stringify(updatedTodos));
     setTodos(updatedTodos);
-    setNewTodo('');  // 입력 창 초기화
+    setNewTodo('');  
   };
   
 
-  // 완료 상태 변경
   const handleToggleComplete = (id: string) => {
     const updatedTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     );
     localStorage.setItem('todos', JSON.stringify(updatedTodos));
-    setTodos(updatedTodos);  // 완료 상태만 업데이트
+    setTodos(updatedTodos);  
   };
 
-  // 할 일 삭제
   const handleDeleteTodo = (id: string) => {
     const updatedTodos = todos.filter((todo) => todo.id !== id);
     localStorage.setItem('todos', JSON.stringify(updatedTodos));
-    setTodos(updatedTodos);  // 삭제된 할 일 업데이트
+    setTodos(updatedTodos);  
   };
 
-  // TODO와 DONE으로 구분하기
   const todoItems = todos.filter((todo) => !todo.completed);
   const doneItems = todos.filter((todo) => todo.completed);
 
