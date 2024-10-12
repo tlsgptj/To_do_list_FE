@@ -87,7 +87,7 @@ const TodoDetailPage: React.FC = () => {
       }
     }
   };
-  
+
   const handleToggleComplete = () => {
     if (todo) {
       const updatedTodo = { ...todo, completed: !todo.completed };
@@ -128,6 +128,13 @@ const TodoDetailPage: React.FC = () => {
                   onChange={(e) => setUpdatedText(e.target.value)}
                   className="w-full text-lg text-center bg-white text-black outline-none"
                   onBlur={() => setIsEditing(false)}
+                  //엔터키 누르면 수정 반영되는 내용 추가
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                        handleUpdate();
+                        setIsEditing(false);
+                    }
+                  }}
                 />
               </div>
             ) : (
