@@ -21,23 +21,28 @@ const TodoList: React.FC = () => {
   }, []);
 
   // 새로운 할 일 추가
-  const handleAddTodo = () => {
+const handleAddTodo = () => {
     if (newTodo.trim() === '') return;  // 입력 값이 없으면 추가하지 않음
-
+  
     const storedTodos = localStorage.getItem('todos');
     const todos = storedTodos ? JSON.parse(storedTodos) : [];
-
+  
+    // Done(완료된 항목)은 유지하고 TODO(완료되지 않은 항목)에만 새 항목 추가
+    const doneItems = todos.filter((todo: Todo) => todo.completed);
+    const todoItems = todos.filter((todo: Todo) => !todo.completed);
+  
     const newTodoItem = {
       id: Date.now().toString(),
       text: newTodo,
       completed: false,  // 새 항목은 미완료 상태로 추가
     };
-
-    const updatedTodos = [...todos, newTodoItem];  // 새로운 할 일 추가
+  
+    const updatedTodos = [...doneItems, ...todoItems, newTodoItem];  // 완료된 항목과 새 할 일 추가된 TODO 목록
     localStorage.setItem('todos', JSON.stringify(updatedTodos));
     setTodos(updatedTodos);
     setNewTodo('');  // 입력 창 초기화
   };
+  
 
   // 완료 상태 변경
   const handleToggleComplete = (id: string) => {
