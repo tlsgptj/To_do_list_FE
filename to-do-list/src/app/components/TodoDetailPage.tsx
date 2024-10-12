@@ -56,22 +56,6 @@ const TodoDetailPage: React.FC = () => {
     }
   };
 
-  const BacktoList = () => {
-    //저장로직이랑 뒤로가기
-    if (todo) {
-        const storedTodos = localStorage.getItem('todos');
-        if (storedTodos) {
-          const todos: Todo[] = JSON.parse(storedTodos);
-          const updatedTodos = todos.map((t) =>
-            t.id === todo.id ? { ...t, text: updatedText, memo } : t
-          );
-          localStorage.setItem('todos', JSON.stringify(updatedTodos));
-        }
-      }
-
-    router.back();
-  }
-
   const handleUpdate = () => {
     if (todo) {
       const storedTodos = localStorage.getItem('todos');
@@ -81,9 +65,9 @@ const TodoDetailPage: React.FC = () => {
           t.id === todo.id ? { ...t, text: updatedText, memo, imageUrl: image?.name } : t
         );
         localStorage.setItem('todos', JSON.stringify(updatedTodos));
-        router.push('/');
       }
     }
+    router.back();
   };
 
   const handleDelete = () => {
@@ -175,7 +159,7 @@ const TodoDetailPage: React.FC = () => {
 
       <div className="mt-4 flex justify-end space-x-2">
         <button
-          onClick={BacktoList}
+          onClick={handleUpdate}
           className="bg-gray-300 text-black font-bold py-2 px-6 rounded-full shadow-md hover:bg-lime-400 hover:text-white flex items-center justify-center"
         >
           V 수정 완료
