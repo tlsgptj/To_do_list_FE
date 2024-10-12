@@ -17,11 +17,10 @@ const TodoDetailPage: React.FC = () => {
   const [todo, setTodo] = useState<Todo | null>(null);
   const [updatedText, setUpdatedText] = useState('');
   const [memo, setMemo] = useState('');
-  const [image, setImage] = useState<File | null>(null);
+  const [image, setImage] = useState<string | null>(null);  // Base64 string으로 변경
   const [error, setError] = useState('');
 
   useEffect(() => {
-    console.log("itemId:", itemId);
     if (itemId) {
       const storedTodos = localStorage.getItem('todos');
       if (storedTodos) {
@@ -31,11 +30,10 @@ const TodoDetailPage: React.FC = () => {
           setTodo(currentTodo);
           setUpdatedText(currentTodo.text);
           setMemo(currentTodo.memo || '');
+          setImage(currentTodo.imageUrl || '');
         } else {
           console.log("해당 ID의 할 일을 찾을 수 없습니다.");
         }
-      } else {
-        console.log("로컬 저장소에서 할 일을 찾을 수 없습니다.");
       }
     }
   }, [itemId]);
@@ -51,8 +49,14 @@ const TodoDetailPage: React.FC = () => {
         setError('파일 크기는 5MB 이하여야 합니다.');
         return;
       }
-      setImage(file);
-      setError('');
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64String = reader.result as string;
+        setImage(base64String);  
+        setError('');
+      };
+      reader.readAsDataURL(file); 
     }
   };
 
@@ -62,7 +66,7 @@ const TodoDetailPage: React.FC = () => {
       if (storedTodos) {
         const todos: Todo[] = JSON.parse(storedTodos);
         const updatedTodos = todos.map((t) =>
-          t.id === todo.id ? { ...t, text: updatedText, memo, imageUrl: image?.name } : t
+          t.id === todo.id ? { ...t, text: updatedText, memo, imageUrl: image } : t
         );
         localStorage.setItem('todos', JSON.stringify(updatedTodos));
       }
@@ -87,7 +91,7 @@ const TodoDetailPage: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center w-full max-w-2xl">
+    <div className="flex flex-col items-center justify-center w-full max-w-4xl mx-auto p-4">
       <div className="w-full p-4 flex space-x-4">
         <div className="flex-1">
           <input
@@ -103,7 +107,7 @@ const TodoDetailPage: React.FC = () => {
         <div className="w-full md:w-1/2 bg-gray-100 p-4 flex items-center justify-center border-2 border-dashed rounded-lg relative">
           {image ? (
             <img
-              src={URL.createObjectURL(image)}
+              src={image} 
               alt="Todo Image"
               className="w-full h-full object-cover rounded-lg"
             />
@@ -118,12 +122,7 @@ const TodoDetailPage: React.FC = () => {
             id="fileUpload"
             accept="image/*"
             style={{ display: 'none' }}
-            onChange={(e) => {
-              const file = e.target.files?.[0];
-              if (file) {
-                setImage(file);
-              }
-            }}
+            onChange={handleImageUpload}  
           />
 
           <button
@@ -171,4 +170,3 @@ const TodoDetailPage: React.FC = () => {
 };
 
 export default TodoDetailPage;
-
