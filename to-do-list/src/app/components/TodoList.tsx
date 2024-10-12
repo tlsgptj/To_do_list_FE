@@ -20,37 +20,39 @@ const TodoList: React.FC = () => {
     }
   }, []);
 
-  
+  // 새로운 할 일 추가
+  const handleAddTodo = () => {
+    if (newTodo.trim() === '') return;  // 입력 값이 없으면 추가하지 않음
 
-const handleAddTodo = () => {
-    if (newTodo.trim() == '') return; //베타 테스트 중 입력값이 비어있어도 추가된다는 오류가 나서 추가함
     const storedTodos = localStorage.getItem('todos');
     const todos = storedTodos ? JSON.parse(storedTodos) : [];
-    
+
     const newTodoItem = {
       id: Date.now().toString(),
       text: newTodo,
-      completed: false,
+      completed: false,  // 새 항목은 미완료 상태로 추가
     };
-  
-    const updatedTodos = [...todos, newTodoItem];
+
+    const updatedTodos = [...todos, newTodoItem];  // 새로운 할 일 추가
     localStorage.setItem('todos', JSON.stringify(updatedTodos));
     setTodos(updatedTodos);
-    setNewTodo(''); //베타테스트 도중 추가하기 버튼을 누르면 Done에 있는 데이터가 영향을 받는다는 오류 수정
+    setNewTodo('');  // 입력 창 초기화
   };
-  
 
+  // 완료 상태 변경
   const handleToggleComplete = (id: string) => {
     const updatedTodos = todos.map((todo) =>
       todo.id === id ? { ...todo, completed: !todo.completed } : todo
     );
-    setTodos(updatedTodos);
+    localStorage.setItem('todos', JSON.stringify(updatedTodos));
+    setTodos(updatedTodos);  // 완료 상태만 업데이트
   };
 
   // 할 일 삭제
   const handleDeleteTodo = (id: string) => {
     const updatedTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(updatedTodos);
+    localStorage.setItem('todos', JSON.stringify(updatedTodos));
+    setTodos(updatedTodos);  // 삭제된 할 일 업데이트
   };
 
   // TODO와 DONE으로 구분하기
@@ -59,8 +61,6 @@ const handleAddTodo = () => {
 
   return (
     <div className="flex flex-col items-center justify-center w-full max-w-7xl mx-auto mt-10 p-4">
-      {/* 제목과 입력창 */}
-
       <div className="flex w-full mb-10 justify-between space-x-10">
         <input
           type="text"
@@ -78,9 +78,7 @@ const handleAddTodo = () => {
         </button>
       </div>
 
-      {/* 웹에서는 가로로, 앱에서는 세로로 */}
       <div className="flex flex-col md:flex-row w-full justify-between space-y-6 md:space-y-0 md:space-x-10">
-        {/* TODO 목록 */}
         <div className="flex flex-col w-full md:w-1/2">
           <div className="flex items-center justify-between mb-4">
             <h2 className="px-4 py-2 bg-lime-400 text-green-800 font-bold rounded-full">TO DO</h2>
@@ -106,7 +104,6 @@ const handleAddTodo = () => {
           </ul>
         </div>
 
-        {/* DONE 목록 */}
         <div className="flex flex-col w-full md:w-1/2">
           <div className="flex items-center justify-between mb-4">
             <h2 className="px-4 py-2 bg-green-700 text-lime-200 font-bold rounded-full">DONE</h2>
